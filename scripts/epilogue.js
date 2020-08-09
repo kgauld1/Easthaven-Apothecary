@@ -1,4 +1,4 @@
-let story = ["welcome to your new job at the Easthaven Apothecary! You must brew potions for the customers who come to our shop. However, as is tradition, the customers will want a battle after getting their potion. Be warned- this battle is only harder if you make the customer angry by messing up their order.", "You'll make money after every order completed which will allow you to upgrade your weapons, allowing you to perform better against angry customers. As you serve more customers, you'll unlock new potion recipes, allowing you to serve more customers. Good luck!"];
+let story = ["You've defeated the evil dragon. Your destiny has been fulfilled, and you can finally go on to live the peaceful life you've always wanted to live. What will you do? That's all up to you, but you've made a good life here in Easthaven, brewing potions for the locals. Some have even begun to appreciate your work.", "Your story is yours to write. Because of you, Easthaven is safe from the dragon. Thank you for your work. Goodbye!"];
 let show = ["", ""];
 let book, backgroundImg, font2, over, gp;
 function preload(){
@@ -18,7 +18,7 @@ function setup(){
   gp.textSize(gp.height/25);
 }
 function draw(){
-  frameRate(40);
+  frameRate(20);
   background(backgroundImg);
   gp.image(book,-15,0);
   if(story[0] != "" || story[1] != ""){
@@ -34,7 +34,7 @@ function draw(){
     gp.pop();
   }else{
     gp.push(); gp.textSize(gp.height/23); gp.fill('red');
-    gp.text("press any key to start", gp.width/2+gp.width/30, gp.height*13/16, gp.width/2-gp.width/8, gp.height/8);
+    gp.text("press any key to cont", gp.width/2+gp.width/30, gp.height*13/16, gp.width/2-gp.width/8, gp.height/8);
     gp.pop();
     over = true;
   }
@@ -52,5 +52,5 @@ function keyPressed(){
     story = ["",""];
     over = true;
   }else
-    window.open("/levelSelect.html", "_self");
+    window.open("/index.html", "_self");
 }

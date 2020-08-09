@@ -3,13 +3,13 @@
 
 //variables - can we pls organize these
 //image variables
-let gameBackground, book, potionsBg, potionScreen, textbox, potion_shown, fairy, healing, lunar;
+let gameBackground, book, potionsBg, potionScreen, textbox, empty, fairy, healing, lunar, bad;
 
 //button variables
 let b1, brew, clear, bookPage;
 
 //design variables
-let font, brewing, potion_dict, potion_names, vial_colors;
+let font, brewing, potion_dict, potion_names, vial_colors, potion_imgs;
 
 //potion variables
 let ppos, psize, yCount, lCount, dCount, aCount, brewing_count, p1, p2, p3, p4, v_w, v_h, vial_array;
@@ -25,9 +25,11 @@ function preload(){
   p2 = loadImage("images/potion2.png");
   p3 = loadImage("images/potion3.png");
   p4 = loadImage("images/potion4.png");
-  potion_shown = loadImage("images/empty_bottle.png")
+  empty = loadImage("images/empty_bottle.png")
   fairy = loadImage("images/fairy.png");
-  lunar = loadImage("images/")
+  lunar = loadImage("images/lunar.png");
+  healing = loadImage("images/healing.png");
+  bad = loadImage("images/badpotion.png");
 
 }
 
@@ -39,7 +41,11 @@ function setup(){
   potionScreen.resize(width, height);
   serveScreen.resize(width, height);
   textbox.resize(30/85*width, 1/5*height);
-  potion_shown.resize(15/85*width, 26/50*height);
+  empty.resize(15/85*width, 26/50*height);
+  lunar.resize(15/85*width, 15/50*height);
+  healing.resize(15/85*width, 26/50*height);
+  fairy.resize(15/85*width, 26/50*height);
+  bad.resize(15/85*width, 30/50*height);
 
   textboxShow = createGraphics(textbox.width, textbox.height);
   p1.resize(4/85*width, 5/50*height);
@@ -64,11 +70,13 @@ function setup(){
   
   //recipe
   potion_names = ["Fairy Tonic", "Healing Potion", "Lunar Phoenix"]
+  potion_imgs = [fairy, healing, lunar]
 
   vial_colors = ["#00C853","#5E35B1","#C51162","#0D47A1"]
   vial_array = [];
   levelInfo = JSON.parse(localStorage.getItem('levels'))[localStorage.getItem('currentLevel')];
   bookPage = 0;
+  startTime = millis();
 }
 
 function draw(){
@@ -121,9 +129,18 @@ function showText(){
     text("SERVE", 78.5/85*width, 5.5/50*height);
     if(isNaN(order)){
       text("Go get an order first!", 72.5/85*width, 44/50*height);
-      image(potion_shown, 64.5/85*width, 1/5*height);
+      image(empty, 64.5/85*width, 1/5*height);
     } else{
-      text("Here is your finished " + potion_names[order], 72.5/85*width, 44/50*height);
+      text("Here is your finished ", 72.5/85*width, 42/50*height);
+      text(potion_names[order], 72.5/85*width, 44/50*height);
+      var recipe = potion_dict[order]
+      if (brewing_count[0] == 0 && brewing_count[1] == 0 && brewing_count[2] == 0 && brewing_count[3] == 0){
+        image(empty, 64.5/85*width, 1/5*height);
+      } else if (brewing_count[0] == recipe[0] && brewing_count[1] == recipe[1] && brewing_count[2] == recipe[2] && brewing_count[3] == recipe[3]){
+        image(potion_imgs[order], 64.5/85*width, 1/5*height);
+      } else{
+        image(bad, 64.5/85*width, 1/5*height);
+      }
     }
   }
   fill(0);
@@ -168,16 +185,14 @@ function mousePressed(){
     if(brewing){
       goBrew();
     } else{
-      //var order = parseInt(localStorage.getItem("customerOrder"))
-      var order = 1;
-      console.log(order);
-      console.log(potion_dict[order])
+      var order = parseInt(localStorage.getItem("customerOrder"))
       var recipe = potion_dict[order]
       var summ = 0;
       for(var i=0; i<recipe.length; i++){
         summ += abs(recipe[i]-brewing_count[i]) //score is just the sum of differences between each ingredient
       }
       localStorage.setItem("score", summ);
+      localStorage.setItem("time", round((millis()-startTime)/1000));
       window.open("/customerPage.html", "_self");
     }
   }

@@ -1,5 +1,5 @@
 //variables
-let dagger, sword, breadknife, bow, bg, back, textbox, pointer, buy, bag_array, bag;
+let dagger, sword, breadknife, bow, bg, back, textbox, pointer, buy;
 let weapons, selection, owned_money, price, sgold, textbox_noarrow, buying, first_arrived;
 let weapon_array, weapon_level, armor_array, armor_level, armor_names;
 let shirt, leather, chainmail, armor;
@@ -15,7 +15,6 @@ function preload(){
   sgold = loadImage("images/coin.png");
   textbox_noarrow =loadImage("images/textbox_noarrow.png")
   pointer = loadImage("images/pointer.png");
-  bag = loadImage("images/bag.png");
   shirt = loadImage("images/shirt.png");
   leather = loadImage("images/leather_tunic.png");
   chainmail = loadImage("images/chain_mail.png");
@@ -60,7 +59,6 @@ function setup(){
   textbox_noarrow.resize(15/85*width, 7/85*width);
   sgold.resize(3/85*width, 3/85*width);
   pointer.resize(4/85*width, 4/85*width);
-  bag.resize(17/85*width, 0);
 
   weapon_array = [breadknife, dagger, bow, sword];
   weapon_level = 0;
@@ -69,7 +67,7 @@ function setup(){
 
   weapons = ["bread knife", "dagger", "bow and arrow", "sword"];
   armor_names = ["t shirt", "leather tunic", "chain mail", "armor"];
-  price = [10, 25, 50, 100];
+  price = [50, 80, 120, 125];
 
   owned_money = parseInt(localStorage.getItem("sgold"))
   //owned_money = 0;
@@ -77,22 +75,16 @@ function setup(){
     owned_money = 0;
   }
 
-  bag_array = localStorage.getItem("bag_array");
-  if (bag_array==null || isNaN(bag_array)){
-    bag_array = [0, 0, 0, 0];
-  }
-
   selection = 0;
 
   pre_armor = localStorage.getItem("armor");
   if (pre_armor == null || isNaN(pre_armor)){
-    localStorage.setItem("armor", armor_names[armor_level]);
-    localStorage.setItem("weapon", weapons[weapon_level]);
+    localStorage.setItem("armor", armor_level);
+    localStorage.setItem("weapon", weapon_level);
   }
 }
 
 function onBackClick(){
-  localStorage.setItem("bag_array", bag_array)
   window.open("/levelSelect.html", "_self");
 }
 
@@ -104,14 +96,14 @@ function buyWeapon(){
       localStorage.setItem("sgold", owned_money - price[weapon_level]);
       owned_money = parseInt(localStorage.getItem("sgold"))
       weapon_level+=1;
-      localStorage.setItem("weapon", weapons[weapon_level]);
+      localStorage.setItem("weapon", weapon_level);
     }
   } else{
     if (owned_money > price[armor_level] && armor_level < 3){
       localStorage.setItem("sgold", owned_money - price[armor_level]);
       owned_money = parseInt(localStorage.getItem("sgold"))
       armor_level+=1;
-      localStorage.setItem("armor", armor_names[armor_level]);
+      localStorage.setItem("armor", armor_level);
     }
   }
 
