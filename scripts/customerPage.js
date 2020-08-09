@@ -72,7 +72,7 @@ function draw(){
     text("Press any button to start brewing", width/2, 45/50*height);
   } else if (added_coins == false){
     var time_took = parseInt(localStorage.getItem("time"));
-    var profit = floor(map(potion_score+time_took, 0, 12, 14, 0));
+    var profit = floor(map(potion_score+time_took, 0, 13, 14, 0));
     var sgold = parseInt(localStorage.getItem("sgold"));
     if(sgold==null || isNaN(sgold)){
       sgold = profit;

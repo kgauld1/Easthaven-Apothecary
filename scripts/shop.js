@@ -82,6 +82,8 @@ function setup(){
     localStorage.setItem("armor", armor_level);
     localStorage.setItem("weapon", weapon_level);
   }
+  armor_level = parseInt(localStorage.getItem("armor"));
+  weapon_level = parseInt(localStorage.getItem("weapon"));
 }
 
 function onBackClick(){
@@ -112,6 +114,7 @@ function buyWeapon(){
 function draw(){
   background(bg);
   image(weapon_array[weapon_level], 24/85*width, 1/15*height);
+  console.log(armor_level);
   image(armor_array[armor_level], 44/85*width, 1/15*height);
 
   textAlign(CENTER);
