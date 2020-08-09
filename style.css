@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'arcade';
+  src: URL('arcade.ttf') format('truetype');
+}
+
+#p5_loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(75, 49, 42);
+  color: rgb(253,206,10);
+	width: 100%;
+	height: 100%;
+	/* display: flex; */
+	text-align: center;
+	line-height: 100vh;
+	font-size: 7em;
+	font-family: 'arcade';
+}
