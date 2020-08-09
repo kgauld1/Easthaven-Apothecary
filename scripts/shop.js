@@ -47,7 +47,7 @@ function setup(){
   buying = false;
   first_arrived = true;
 
-  textbox.resize(width/3, height*10/50)
+  textbox.resize(width/2, height*10/50)
   sword.resize(16/85*width, 16/85*width);
   dagger.resize(16/85*width, 16/85*width);
   bow.resize(16/85*width, 16/85*width);
@@ -56,7 +56,7 @@ function setup(){
   leather.resize(16/85*width, 16/85*width);
   chainmail.resize(16/85*width, 16/85*width);
   armor.resize(16/85*width, 16/85*width);
-  textbox_noarrow.resize(15/85*width, 7/85*width);
+  textbox_noarrow.resize(20/85*width, 7/85*width);
   sgold.resize(3/85*width, 3/85*width);
   pointer.resize(4/85*width, 4/85*width);
 
@@ -119,11 +119,11 @@ function draw(){
   fill("black");
   noStroke();
 
-  image(textbox_noarrow, 35/85*width, 0.52*height);
+  image(textbox_noarrow, 32.5/85*width, 0.52*height);
   text('You  own  ' + owned_money + '  sgold', width/2, 0.58*height);
   image(sgold, 41/85*width, 0.58*height);
 
-  image(textbox, width/3, height*0.70)
+  image(textbox, width/4, height*0.70)
   if (first_arrived){
     text('View  upgrade  using  arrow  keys', width * 0.5, height * .79);
     text('on  your  keyboard ', width * 0.5, height * .82);
